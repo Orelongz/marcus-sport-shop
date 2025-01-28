@@ -1,15 +1,10 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Inter } from "next/font/google";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import NavBar from "@/components/NavBar";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Marcus' Sport Shop",
@@ -19,10 +14,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" data-theme="corporate">
+      <body className={`${inter.className} antialiased`}>
+        <NavBar />
+
         {children}
       </body>
     </html>
