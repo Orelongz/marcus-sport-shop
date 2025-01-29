@@ -140,3 +140,18 @@ end
 
   AccessoryType.create!(attributes)
 end
+
+# Create ComplementaryAccessoryPrice and  ComplementaryAccessoryConstraint
+first_acceesories = AccessoryType.first.accessories
+second_acceesories = AccessoryType.second.accessories
+
+ComplementaryAccessoryPrice.find_or_create_by!(
+  accessory_id: first_acceesories.first.id,
+  complementary_accessory_id: second_acceesories.first.id,
+  price: 1000
+)
+
+ComplementaryAccessoryConstraint.find_or_create_by!(
+  accessory_id: first_acceesories.second.id,
+  complementary_accessory_id: second_acceesories.second.id
+)

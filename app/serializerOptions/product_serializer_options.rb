@@ -4,7 +4,9 @@ class ProductSerializerOptions
   class << self
     def index
       {
-        fields: { product: %i[id name price image] }
+        fields: {
+          product: %i[id name price image]
+        }
       }
     end
 

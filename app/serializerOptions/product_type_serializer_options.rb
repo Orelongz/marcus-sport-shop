@@ -4,7 +4,7 @@ class ProductTypeSerializerOptions
   class << self
     def index
       {
-        fields: { product_type: ATTRIBUTES }
+        fields: { product_type: ALL_ATTRIBUTES }
       }
     end
 

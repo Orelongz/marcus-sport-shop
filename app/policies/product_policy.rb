@@ -1,2 +1,2 @@
-class ProductPolicy < ProductTypePolicy
+class ProductPolicy < BasePolicy
 end

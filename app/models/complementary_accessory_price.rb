@@ -1,4 +1,6 @@
 class ComplementaryAccessoryPrice < ApplicationRecord
+  belongs_to :accessory
+  belongs_to :complementary_accessory, class_name: "Accessory"
 end
 
 # == Schema Information

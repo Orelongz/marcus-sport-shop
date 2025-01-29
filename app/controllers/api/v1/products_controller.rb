@@ -8,6 +8,10 @@ module Api
         # TODO: Paginate the results
         products = authorize(Product.includes(:url_media_files).in_stock)
 
+        if params[:product_type_id].present?
+          products = products.where(product_type_id: params[:product_type_id])
+        end
+
         render(
           json: ProductSerializer.new(
             products,

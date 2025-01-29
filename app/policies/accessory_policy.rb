@@ -1,0 +1,2 @@
+class AccessoryPolicy < BasePolicy
+end

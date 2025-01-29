@@ -14,4 +14,6 @@ class ProductSerializer
   end
 
   belongs_to :product_type
+
+  has_many :accessory_types
 end

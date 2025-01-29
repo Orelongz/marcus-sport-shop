@@ -1,8 +1,10 @@
 require "rails_helper"
 
-RSpec.describe Api::V1::ProductTypesController, type: :controller do
+RSpec.describe Api::V1::AccessoryTypesController, type: :controller do
+  let(:product_type) { create(:product_type) }
+
   describe "GET #index" do
-    let!(:product_types) { create_list(:product_type, 2) }
+    let!(:accessory_types) { create_list(:accessory_type, 2) }
 
     before { get :index }
 
@@ -10,29 +12,29 @@ RSpec.describe Api::V1::ProductTypesController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it 'returns all product_types' do
-      expect(parsed_body["data"].size).to eq(product_types.size)
+    it 'returns all accessory_types' do
+      expect(parsed_body["data"].size).to eq(accessory_types.size)
       expect(
-        parsed_body["data"].map { |product_type| product_type["id"].to_i }
-      ).to match_array(product_types.map(&:id))
+        parsed_body["data"].map { |accessory_type| accessory_type["id"].to_i }
+      ).to match_array(accessory_types.map(&:id))
     end
   end
 
   describe "GET #show" do
-    let(:product_type) { create(:product_type) }
+    let(:accessory_type) { create(:accessory_type) }
 
-    before { get :show, params: { id: product_type.id } }
+    before { get :show, params: { id: accessory_type.id } }
 
     it 'returns 200' do
       expect(response).to have_http_status(:ok)
     end
 
-    it 'returns the product_type' do
-      expect(parsed_body["data"]["id"].to_i).to eq(product_type.id)
+    it 'returns the accessory_type' do
+      expect(parsed_body["data"]["id"].to_i).to eq(accessory_type.id)
     end
 
-    context "when the product_type does not exist" do
-      let(:product_type) { OpenStruct.new(id: 0) }
+    context "when the accessory_type does not exist" do
+      let(:accessory_type) { OpenStruct.new(id: 0) }
 
       it 'returns 404' do
         expect(response).to have_http_status(:not_found)
@@ -41,8 +43,8 @@ RSpec.describe Api::V1::ProductTypesController, type: :controller do
   end
 
   describe "POST #create" do
-    let(:product_type_params) { attributes_for(:product_type) }
-    let(:params) { { product_type: product_type_params } }
+    let(:accessory_type_params) { attributes_for(:accessory_type, product_type_id: product_type.id) }
+    let(:params) { { accessory_type: accessory_type_params } }
 
     subject { post :create, params: params }
 
@@ -61,16 +63,16 @@ RSpec.describe Api::V1::ProductTypesController, type: :controller do
         expect(response).to have_http_status(:created)
       end
 
-      it 'creates the product_type' do
-        expect(parsed_body["data"]["attributes"]["name"]).to eq(product_type_params[:name])
+      it 'creates the accessory_type' do
+        expect(parsed_body["data"]["attributes"]["name"]).to eq(accessory_type_params[:name])
       end
     end
   end
 
   describe "PUT #update" do
-    let(:product_type) { create(:product_type) }
-    let(:product_type_params) { attributes_for(:product_type) }
-    let(:params) { {id: product_type.id, product_type: product_type_params } }
+    let(:accessory_type) { create(:accessory_type) }
+    let(:accessory_type_params) { attributes_for(:accessory_type) }
+    let(:params) { {id: accessory_type.id, accessory_type: accessory_type_params } }
 
     subject { put :update, params: params }
 
@@ -89,12 +91,12 @@ RSpec.describe Api::V1::ProductTypesController, type: :controller do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'creates the product_type' do
-        expect(parsed_body["data"]["attributes"]["name"]).to eq(product_type_params[:name])
+      it 'creates the accessory_type' do
+        expect(parsed_body["data"]["attributes"]["name"]).to eq(accessory_type_params[:name])
       end
 
-      context "when the product_type does not exist" do
-        let(:product_type) { OpenStruct.new(id: 0) }
+      context "when the accessory_type does not exist" do
+        let(:accessory_type) { OpenStruct.new(id: 0) }
 
         it 'returns 404' do
           expect(response).to have_http_status(:not_found)
@@ -104,9 +106,9 @@ RSpec.describe Api::V1::ProductTypesController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let(:product_type) { create(:product_type) }
+    let(:accessory_type) { create(:accessory_type) }
 
-    subject { delete :destroy, params: { id: product_type.id } }
+    subject { delete :destroy, params: { id: accessory_type.id } }
 
     it_behaves_like "non admin users in admin routes"
 
@@ -123,8 +125,8 @@ RSpec.describe Api::V1::ProductTypesController, type: :controller do
         expect(response).to have_http_status(:no_content)
       end
 
-      context "when the product_type does not exist" do
-        let(:product_type) { OpenStruct.new(id: 0) }
+      context "when the accessory_type does not exist" do
+        let(:accessory_type) { OpenStruct.new(id: 0) }
 
         it 'returns 404' do
           expect(response).to have_http_status(:not_found)

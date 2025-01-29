@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::ProductsController, type: :controller do
-  let!(:products) { create_list(:product, 2) }
-
   describe "GET #index" do
+    let!(:products) { create_list(:product, 2) }
+
     before { get :index }
 
     it 'returns 200' do
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
   end
 
   describe "POST #create" do
-    let!(:product_type) { create(:product_type) }
+    let(:product_type) { create(:product_type) }
     let(:product_params) { attributes_for(:product, product_type_id: product_type.id) }
     let(:params) { { product: product_params } }
 
