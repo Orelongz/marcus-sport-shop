@@ -1,5 +1,16 @@
 class Product < ApplicationRecord
+  include CanUseCombinedMediaConcern
+
   belongs_to :product_type
+
+  has_many :product_accessory_types, dependent: :delete_all
+  has_many :accessory_types, through: :product_accessory_types
+  has_many :accessories, through: :accessory_types
+
+  validates :name, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
+
+  scope :in_stock, -> { where(out_of_stock: false) }
 end
 
 # == Schema Information

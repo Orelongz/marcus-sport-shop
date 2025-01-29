@@ -5,18 +5,23 @@ module Api
       before_action :product_type, only: %i[show update destroy]
 
       def index
-        # TODO: Paginate the results
         product_types = authorize(ProductType.all)
 
         render(
-          json: ProductTypeSerializer.new(product_types).serializable_hash,
+          json: ProductTypeSerializer.new(
+            product_types,
+            ProductTypeSerializerOptions.index
+          ).serializable_hash,
           status: :ok
         )
       end
 
       def show
         render(
-          json: ProductTypeSerializer.new(@product_type).serializable_hash,
+          json: ProductTypeSerializer.new(
+            @product_type,
+            ProductTypeSerializerOptions.show
+          ).serializable_hash,
           status: :ok
         )
       end
@@ -25,7 +30,10 @@ module Api
         product_type = authorize ProductType.create!(product_type_params)
 
         render(
-          json: ProductTypeSerializer.new(product_type).serializable_hash,
+          json: ProductTypeSerializer.new(
+            product_type,
+            ProductTypeSerializerOptions.create
+          ).serializable_hash,
           status: :created
         )
       end
@@ -34,7 +42,10 @@ module Api
         @product_type.update!(product_type_params)
 
         render(
-          json: ProductTypeSerializer.new(@product_type).serializable_hash,
+          json: ProductTypeSerializer.new(
+            @product_type,
+            ProductTypeSerializerOptions.create
+          ).serializable_hash,
           status: :ok
         )
       end

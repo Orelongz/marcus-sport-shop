@@ -7,6 +7,8 @@ class AccessoryType < ApplicationRecord
   has_many :products, through: :product_accessory_types
 
   validates :name, presence: true, uniqueness: true
+
+  accepts_nested_attributes_for :accessories
 end
 
 # == Schema Information

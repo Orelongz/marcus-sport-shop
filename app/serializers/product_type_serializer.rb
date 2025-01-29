@@ -1,5 +1,7 @@
 class ProductTypeSerializer
   include JSONAPI::Serializer
 
-  attributes :id, :name
+  attributes(*::ProductTypeSerializerOptions::ALL_ATTRIBUTES)
+
+  has_many :products
 end

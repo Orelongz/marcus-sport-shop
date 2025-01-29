@@ -1,4 +1,6 @@
 class Accessory < ApplicationRecord
+  include CanUseCombinedMediaConcern
+
   belongs_to :accessory_type
 
   has_many :products, through: :accessory_type
