@@ -9,6 +9,8 @@ class User < ApplicationRecord
     :validatable
 
   include DeviseTokenAuth::Concerns::User
+
+  enum :role, { customer: 0, admin: 1 }
 end
 
 # == Schema Information
@@ -29,6 +31,7 @@ end
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("customer")
 #  tokens                 :json
 #  uid                    :string           default(""), not null
 #  unconfirmed_email      :string

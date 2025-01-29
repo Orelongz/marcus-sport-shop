@@ -8,14 +8,14 @@ class ProductTypePolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    admin_user?
   end
 
   def update?
-    user.admin?
+    admin_user?
   end
 
   def destroy?
-    user.admin?
+    admin_user?
   end
 end

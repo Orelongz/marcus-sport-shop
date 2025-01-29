@@ -1,28 +1,31 @@
 module Api
   module V1
     class ProductTypesController < BaseController
+      skip_before_action :authenticate_api_user!, only: %i[index show]
       before_action :product_type, only: %i[show update destroy]
 
       def index
         # TODO: Paginate the results
+        product_types = authorize(ProductType.all)
+
         render(
-          json: ProductTypeSerializer.new(ProductType.all).serialize,
+          json: ProductTypeSerializer.new(product_types).serializable_hash,
           status: :ok
         )
       end
 
       def show
         render(
-          json: ProductTypeSerializer.new(@product_type).serialize,
+          json: ProductTypeSerializer.new(@product_type).serializable_hash,
           status: :ok
         )
       end
 
       def create
-        product_type = authorize(ProductType.create!(product_type_params))
+        product_type = authorize ProductType.create!(product_type_params)
 
         render(
-          json: ProductTypeSerializer.new(product_type).serialize,
+          json: ProductTypeSerializer.new(product_type).serializable_hash,
           status: :created
         )
       end
@@ -31,7 +34,7 @@ module Api
         @product_type.update!(product_type_params)
 
         render(
-          json: ProductTypeSerializer.new(@product_type).serialize,
+          json: ProductTypeSerializer.new(@product_type).serializable_hash,
           status: :ok
         )
       end
@@ -39,7 +42,7 @@ module Api
       def destroy
         @product_type.destroy!
 
-        head status: 204
+        head :no_content
       end
 
       private

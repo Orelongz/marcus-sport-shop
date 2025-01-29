@@ -1,7 +1,5 @@
 class UserSerializer
-  include Alba::Resource
-
-  root_key :user, :users
+  include JSONAPI::Serializer
 
   attributes :id, :name, :email
 end

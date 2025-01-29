@@ -36,8 +36,9 @@ end
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
-  config.include ResponseHelper
+  config.include CommonHelper
   config.include FactoryBot::Syntax::Methods
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

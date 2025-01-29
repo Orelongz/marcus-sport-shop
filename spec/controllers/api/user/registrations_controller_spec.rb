@@ -17,7 +17,7 @@ describe Api::User::RegistrationsController, type: :request do
     end
 
     it 'returns the user email' do
-      expect(parsed_body["data"]["email"]).to eq(user.email)
+      expect(parsed_body["data"]["attributes"]["email"]).to eq(user.email)
     end
   end
 
