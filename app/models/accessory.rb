@@ -8,7 +8,7 @@ class Accessory < ApplicationRecord
 
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }
-  
+
   scope :in_stock, -> { where(out_of_stock: false) }
 end
 

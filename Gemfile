@@ -16,6 +16,7 @@ gem "bootsnap", require: false
 gem "rack-cors"
 gem "oj"
 gem "alba"
+gem "devise_token_auth"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -39,3 +40,5 @@ group :test do
   gem "factory_bot_rails"
   gem "database_cleaner-active_record"
 end
+
+gem "pundit", "~> 2.4"
