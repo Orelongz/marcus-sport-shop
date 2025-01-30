@@ -9,8 +9,6 @@ const Checkbox = ({
 }) => {
   const { register } = useFormContext();
 
-  console.log("value", value);
-
   return (
     <fieldset className="fieldset mt-4 w-full">
       <label className="fieldset-label">

@@ -13,3 +13,19 @@ export const getProducts = async () => {
 
   return productTypes;
 };
+
+export const getProductDetail = async (productId) => {
+  const product = await fetchJSON(
+    `http://localhost:8080/api/v1/products/${productId}`,
+  );
+
+  return product;
+};
+
+export const getAccessoryTypes = async (productTypeId) => {
+  const accessoryTypes = await fetchJSON(
+    `http://localhost:8080/api/v1/accessory_types/?product_type_id=${productTypeId}`,
+  );
+
+  return accessoryTypes;
+};

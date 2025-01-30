@@ -7,7 +7,7 @@ import { useState, useCallback, useEffect } from "react";
 const SideBar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { productTypes } = useProductTypes();
+  const { data: productTypes } = useProductTypes();
   const [selectedProductTypes, setSelectedProductTypes] = useState(
     () => searchParams.get("product_type_id")?.split(",") || [],
   );

@@ -1,2 +1,4 @@
-export const PRODUCTS = "products";
-export const PRODUCT_TYPES = "productTypes";
+export const PRODUCTS = "PRODUCTS";
+export const PRODUCT_TYPES = "PRODUCT_TYPES";
+export const PRODUCT_DETAIL = "PRODUCT_DETAIL";
+export const ACCESSORY_TYPES = "ACCESSORY_TYPES";

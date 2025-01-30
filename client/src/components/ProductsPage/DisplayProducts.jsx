@@ -6,11 +6,11 @@ import { useProducts } from "@/hooks";
 import { formatCentToEuro } from "@/services/util";
 
 const DisplayProducts = () => {
-  const { products } = useProducts();
+  const { data: products } = useProducts();
 
   return (
     <div className="grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-2 xl:grid-cols-3 xl:gap-x-8">
-      {products.map(({ id, name, image, price }) => (
+      {products.map(({ id, name, image, price, productTypeName }) => (
         <Link
           key={name}
           href={`products/${id}`}
@@ -22,7 +22,7 @@ const DisplayProducts = () => {
           <div className="card-body">
             <h2 className="card-title">{name}</h2>
 
-            <div className="badge badge-outline">Product Type</div>
+            <div className="badge badge-outline">{productTypeName}</div>
 
             <div className="">{formatCentToEuro(price)}</div>
           </div>

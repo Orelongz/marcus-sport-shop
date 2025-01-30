@@ -3,6 +3,11 @@ class AccessorySerializer
 
   attributes(*::AccessorySerializerOptions::ALL_ATTRIBUTES)
 
+  attribute :image do |object|
+    object.media_urls.first
+  end
+
+
   belongs_to :accessory_type
 
   has_many :products

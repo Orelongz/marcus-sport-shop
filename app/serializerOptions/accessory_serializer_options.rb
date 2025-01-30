@@ -1,6 +1,6 @@
 class AccessorySerializerOptions
   INDEX_ATTRIBUTES = %i[id name price image out_of_stock].freeze
-  ALL_ATTRIBUTES = %i[id name price media_urls description out_of_stock accessory_type_id].freeze
+  ALL_ATTRIBUTES = %i[id name price media_urls image description out_of_stock accessory_type_id].freeze
 
   class << self
     def index

@@ -11,7 +11,7 @@ class AccessoryTypeSerializerOptions
         ],
         fields: {
           accessory_type: ALL_ATTRIBUTES,
-          accessory: AccessorySerializerOptions::INDEX_ATTRIBUTES,
+          accessory: AccessorySerializerOptions::ALL_ATTRIBUTES,
           complementary_accessory_price: ComplementaryAccessoryPriceSerializerOptions::ALL_ATTRIBUTES,
           complementary_accessory_constraint: ComplementaryAccessoryConstraintSerializerOptions::ALL_ATTRIBUTES
         }
