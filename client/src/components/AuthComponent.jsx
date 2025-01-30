@@ -1,9 +1,18 @@
-const AuthComponent = ({ admin = false }) => {
+import Link from "next/link";
+
+const AuthComponent = ({ type = "sign_up" }) => {
+  const signUpForm = type === "sign_up";
+  const signInForm = type === "sign_in";
+  const buttonText = signUpForm ? "Sign up" : "Sign in";
+  const title = signUpForm
+    ? "Sign up for an account"
+    : "Sign in to your account";
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Sign in to your account
+          {title}
         </h2>
       </div>
 
@@ -51,17 +60,26 @@ const AuthComponent = ({ admin = false }) => {
 
           <div>
             <button type="submit" className="btn btn-primary w-full">
-              Sign in
+              {buttonText}
             </button>
           </div>
         </form>
 
-        {!admin && (
+        {signInForm && (
           <div className="mt-4 text-center">
             Not a member?
-            <a href="/signup" className="btn btn-link px-1">
+            <Link href="/signup" className="btn btn-link px-1">
               Sign up
-            </a>
+            </Link>
+          </div>
+        )}
+
+        {signUpForm && (
+          <div className="mt-4 text-center">
+            Already have an account?{" "}
+            <Link href="/login" className="btn btn-link px-1">
+              Log in
+            </Link>
           </div>
         )}
       </div>

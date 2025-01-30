@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 
 import NavBar from "@/components/NavBar";
+import Providers from "@/lib/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +17,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="corporate">
       <body className={`${inter.className} antialiased`}>
-        <NavBar />
+        <Providers>
+          <NavBar />
 
-        <main className="mt-[64px]">{children}</main>
+          <main className="mt-[64px]">{children}</main>
+        </Providers>
       </body>
     </html>
   );

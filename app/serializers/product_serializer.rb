@@ -1,8 +1,6 @@
 class ProductSerializer
   include JSONAPI::Serializer
 
-  set_key_transform :camel_lower
-
   attributes(*::ProductSerializerOptions::ALL_ATTRIBUTES)
 
   attribute :image do |object|

@@ -1,7 +1,7 @@
-import LoginComponent from "@/components/AuthComponent";
+import AuthComponent from "@/components/AuthComponent";
 
 const UserLoginPage = () => {
-  return <LoginComponent />;
+  return <AuthComponent type="sign_in" />;
 };
 
 export default UserLoginPage;
