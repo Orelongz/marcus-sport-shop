@@ -8,14 +8,24 @@ export const formatCentToEuro = (cents) => {
 };
 
 export const getRecordAttributes = (data) => {
+  if (!data) return {};
+
   return Object.values(data).map((prod) => prod.attributes);
 };
 
-export const normalizeProductsData = (data) =>
-  Object.values(normalize(data).product).map((prod) => prod.attributes);
+export const normalizeProductsData = (data) => {
+  if (!data) return {};
 
-export const normalizeProductTypesdData = (data) =>
-  Object.values(normalize(data).productType).map((prod) => prod.attributes);
+  return Object.values(normalize(data).product).map((prod) => prod.attributes);
+};
+
+export const normalizeProductTypesdData = (data) => {
+  if (!data) return {};
+
+  return Object.values(normalize(data).productType).map(
+    (prod) => prod.attributes,
+  );
+};
 
 export const normalizeProductData = (productId, data) => {
   if (!data) return {};

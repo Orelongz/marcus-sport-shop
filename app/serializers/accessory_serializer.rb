@@ -7,7 +7,6 @@ class AccessorySerializer
     object.media_urls.first
   end
 
-
   belongs_to :accessory_type
 
   has_many :products

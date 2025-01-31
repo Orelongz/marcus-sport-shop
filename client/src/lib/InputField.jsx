@@ -15,7 +15,7 @@ const InputField = ({
       <input
         type={type}
         name={name}
-        className="input"
+        className="input  w-full"
         placeholder={placeholder || label}
         {...register(name, { required })}
       />

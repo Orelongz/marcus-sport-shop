@@ -8,7 +8,7 @@ const SelectField = ({ name, label, placeholder, options }) => {
       <legend className="fieldset-legend">{label}</legend>
       <select
         name={name}
-        className="select"
+        className="select w-full"
         {...register(name)}
         defaultValue={placeholder}
       >

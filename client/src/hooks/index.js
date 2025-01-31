@@ -21,33 +21,37 @@ import {
 } from "@/services/util";
 
 export const useProductTypes = () => {
-  const { data, error, loading } = useQuery({
+  const { data, error, loading, isPending } = useQuery({
     queryKey: [PRODUCT_TYPES],
     queryFn: getProductTypes,
   });
 
   return {
     data: normalizeProductTypesdData(data),
+    isPending,
     loading,
     error,
   };
 };
 
 export const useProducts = () => {
-  const { data, error, loading } = useQuery({
+  const { data, error, loading, isPending } = useQuery({
     queryKey: [PRODUCTS],
     queryFn: getProducts,
   });
 
   return {
     data: normalizeProductsData(data),
+    isPending,
     loading,
     error,
   };
 };
 
-export const useProductDetail = () => {
-  const { id: productId } = useParams();
+export const useProductDetail = (pId) => {
+  const { id } = useParams();
+
+  const productId = pId || id;
 
   const { data, error, loading, isPending } = useQuery({
     queryKey: [PRODUCT_DETAIL, productId],
