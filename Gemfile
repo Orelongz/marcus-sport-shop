@@ -42,3 +42,7 @@ group :test do
 end
 
 gem "pundit", "~> 2.4"
+gem "activeadmin"
+gem "sassc-rails"
+gem "sprockets-rails", require: "sprockets/railtie"
+gem "inherited_resources"

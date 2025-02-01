@@ -1,6 +1,8 @@
 module Api
   module User
     class RegistrationsController < DeviseTokenAuth::RegistrationsController
+      protect_from_forgery unless: -> { request.format.json? }
+
       def render_create_success
         render json: UserSerializer
           .new(@resource)
@@ -12,7 +14,10 @@ module Api
       end
 
       def render_create_error
-        raise ActiveRecord::RecordInvalid.new(@resource)
+        render json: {
+          message: "Validation Failed",
+          errors: @resource.errors.full_messages
+        }, status: :unprocessable_entity
       end
     end
   end

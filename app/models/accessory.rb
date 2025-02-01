@@ -12,6 +12,9 @@ class Accessory < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }
 
   scope :in_stock, -> { where(out_of_stock: false) }
+
+  accepts_nested_attributes_for :complementary_accessory_prices, allow_destroy: true
+  accepts_nested_attributes_for :complementary_accessory_constraints, allow_destroy: true
 end
 
 # == Schema Information

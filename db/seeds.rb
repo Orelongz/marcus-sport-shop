@@ -155,3 +155,4 @@ ComplementaryAccessoryConstraint.find_or_create_by!(
   accessory_id: first_acceesories.second.id,
   complementary_accessory_id: second_acceesories.second.id
 )
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
