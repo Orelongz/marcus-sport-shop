@@ -1,6 +1,6 @@
 module Api
   module V1
-    class AccessoriesController < BaseController
+    class AccessoriesController < ::Api::BaseController
       skip_before_action :authenticate_api_user!, only: %i[index show]
       before_action :accessory, only: %i[show update destroy]
 

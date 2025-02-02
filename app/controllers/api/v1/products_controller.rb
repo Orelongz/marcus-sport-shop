@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ProductsController < BaseController
+    class ProductsController < ::Api::BaseController
       skip_before_action :authenticate_api_user!, only: %i[index show]
       before_action :product, only: %i[show update destroy]
 
