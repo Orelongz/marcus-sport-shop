@@ -5,7 +5,10 @@ class Product < ApplicationRecord
 
   has_many :product_accessory_types, dependent: :delete_all
   has_many :accessory_types, through: :product_accessory_types
+
   has_many :accessories, through: :accessory_types
+
+  has_many :cart_items, dependent: :restrict_with_error
 
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }

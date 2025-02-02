@@ -17,11 +17,6 @@ const ProductDetailPage = ({
       complementaryAccessoryConstraints,
     });
 
-  console.log(
-    "dkaljlkksjflaf;lksfdsdlfaksf",
-    complementaryConstrainIdHash,
-    complementaryPriceHash,
-  );
   return (
     <>
       <div className="mr-120 px-24">

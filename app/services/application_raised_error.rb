@@ -1,0 +1,1 @@
+class ApplicationRaisedError < StandardError; end

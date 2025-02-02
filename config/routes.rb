@@ -16,11 +16,12 @@ Rails.application.routes.draw do
     }, defaults: { format: :json }
 
     namespace :v1 do
-      resources :product_types
-      resources :accessory_types
+      resources :product_types, except: %i[new edit]
+      resources :accessory_types, except: %i[new edit]
 
-      resources :products
-      resources :accessories
+      resources :products, except: %i[new edit]
+      resources :accessories, except: %i[new edit]
+      resources :cart_items, except: %i[new edit]
     end
   end
 end

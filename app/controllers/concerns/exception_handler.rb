@@ -5,6 +5,7 @@ module ExceptionHandler
     rescue_from ActiveRecord::RecordNotFound, with: :not_found_response
     rescue_from Pundit::NotAuthorizedError, with: :not_authorized_response
     rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity_response
+    rescue_from ApplicationRaisedError, with: :application_raised_error_response
   end
 
   private
@@ -35,6 +36,13 @@ module ExceptionHandler
         message: "Validation Failed",
         errors: ValidationErrorSerializer.new(exception.record).serialize
       },
+      status: :unprocessable_entity
+    )
+  end
+
+  def application_raised_error_response(exception)
+    render(
+      json: { message: exception.message },
       status: :unprocessable_entity
     )
   end

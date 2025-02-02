@@ -11,6 +11,8 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   enum :role, { customer: 0, admin: 1 }
+
+  has_one :cart, dependent: :destroy
 end
 
 # == Schema Information
