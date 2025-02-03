@@ -4,6 +4,8 @@ module Api
     include Pundit::Authorization
     include ExceptionHandler
 
+    include ActionController::Cookies
+
     before_action :authenticate_api_user!
     before_action :set_default_response_format
 

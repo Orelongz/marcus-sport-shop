@@ -11,9 +11,9 @@ const DisplayAccessoryTypes = ({
       <h2>Accessories to customize bicycle</h2>
 
       <div className="accordion flex flex-col space-y-4">
-        {accessoryTypes.map((accessoryType, index) => (
+        {Object.values(accessoryTypes).map((accessoryType, index) => (
           <div
-            key={accessoryType.id}
+            key={accessoryType.attributes.id}
             className="collapse bg-base-100 border border-base-300"
           >
             <input
@@ -23,12 +23,12 @@ const DisplayAccessoryTypes = ({
             />
 
             <div className="collapse-title font-semibold">
-              {accessoryType.name}
+              {accessoryType.attributes.name}
             </div>
 
             <DisplayAccessories
               accessories={accessories}
-              accessoryTypeId={accessoryType.id}
+              accessoryTypeId={accessoryType.attributes.id}
               complementaryPriceHash={complementaryPriceHash}
               complementaryConstrainIdHash={complementaryConstrainIdHash}
             />

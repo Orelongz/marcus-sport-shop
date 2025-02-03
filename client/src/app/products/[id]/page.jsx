@@ -1,14 +1,18 @@
 "use client";
-
-import { useCallback, useMemo } from "react";
-import { useParams } from "next/navigation";
-import { getRecordAttributes } from "@/services/util";
+import compact from "lodash/compact";
+import { useCallback, useContext } from "react";
+import { useRouter, useParams } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
-import { useAccessoryTypeDetails, useProductDetail } from "@/hooks";
+
+import { createCartItem } from "@/server/actions";
+import { AlertContext } from "@/lib/Alert/AlertContext";
+import { useProductDetail, useAccessoryTypeDetails } from "@/hooks";
 import ProductDetailPage from "@/components/ProductDetailPage/Index";
 
 const Page = () => {
+  const router = useRouter();
   const { id: productId } = useParams();
+  const { setAlertProps } = useContext(AlertContext);
 
   const { data: product } = useProductDetail();
   const {
@@ -22,40 +26,39 @@ const Page = () => {
     defaultValues: { productId: productId },
   });
 
-  const onSubmit = useCallback((data) => {
-    // send data to cart endpoint to create a cart
-    console.log("data add to cart", data);
-  }, []);
+  const onSubmit = useCallback(
+    (data) => {
+      createCartItem({
+        product_id: data.productId,
+        accessory_ids: compact(data.accessoryId),
+      })
+        .then(() => {
+          setAlertProps({
+            type: "success",
+            message: "Items successfully added to cart",
+          });
 
-  const {
-    accessories,
-    accessoryTypes,
-    complementaryAccessoryPrices,
-    complementaryAccessoryConstraints,
-  } = useMemo(() => {
-    if (isPending || loading) return {};
-
-    const {
-      accessory,
-      accessoryType,
-      complementaryAccessoryPrice,
-      complementaryAccessoryConstraint,
-    } = accessoryTypesDeserializeHash;
-
-    return {
-      accessories: getRecordAttributes(accessory),
-      accessoryTypes: getRecordAttributes(accessoryType),
-      complementaryAccessoryPrices: getRecordAttributes(
-        complementaryAccessoryPrice,
-      ),
-      complementaryAccessoryConstraints: getRecordAttributes(
-        complementaryAccessoryConstraint,
-      ),
-    };
-  }, [accessoryTypesDeserializeHash, isPending, loading]);
+          router.push("/");
+        })
+        .catch(() => {
+          setAlertProps({
+            type: "error",
+            message: "Failed to add items to cart",
+          });
+        });
+    },
+    [router, setAlertProps],
+  );
 
   if (loading || isPending) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+
+  const {
+    accessory: accessories,
+    accessoryType: accessoryTypes,
+    complementaryAccessoryPrice: complementaryAccessoryPrices,
+    complementaryAccessoryConstraint: complementaryAccessoryConstraints,
+  } = accessoryTypesDeserializeHash;
 
   return (
     <FormProvider {...methods}>

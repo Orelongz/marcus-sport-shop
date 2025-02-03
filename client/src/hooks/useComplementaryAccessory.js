@@ -1,69 +1,85 @@
-import compact from "lodash/compact";
-import { useFormContext } from "react-hook-form";
+import { useMemo } from "react";
+import { getRecordAttributes } from "@/services/util";
 
-const getContrainedAccessoryId = ({
+const useGetContrainedAccessoryIdHash = ({
   complementaryAccessoryConstraints,
   selectedAccessoryIds,
 }) => {
-  const constraintHash = {};
-  const complementaryConstrainIdHash = {};
+  const constraintHash = useMemo(() => {
+    const result = {};
 
-  complementaryAccessoryConstraints.forEach((element) => {
-    const { accessoryId, complementaryAccessoryId } = element;
+    getRecordAttributes(complementaryAccessoryConstraints).forEach(
+      (element) => {
+        const { accessoryId, complementaryAccessoryId } = element;
 
-    constraintHash[accessoryId] = { id: complementaryAccessoryId };
-    constraintHash[complementaryAccessoryId] = { id: accessoryId };
-  });
+        result[accessoryId] ||= [];
+        result[accessoryId].push(complementaryAccessoryId);
 
-  selectedAccessoryIds.forEach((id) => {
-    if (constraintHash[Number(id)]) {
-      const complement = constraintHash[Number(id)];
+        result[complementaryAccessoryId] ||= [];
+        result[complementaryAccessoryId].push(accessoryId);
+      },
+    );
 
-      complementaryConstrainIdHash[complement.id] = true;
-    }
-  });
+    return result;
+  }, [complementaryAccessoryConstraints]);
 
-  return complementaryConstrainIdHash;
+  return useMemo(() => {
+    const result = {};
+
+    selectedAccessoryIds.forEach((id) => {
+      if (constraintHash[Number(id)]) {
+        constraintHash[Number(id)].forEach((complement_id) => {
+          result[complement_id] = { id: Number(id) };
+        });
+      }
+    });
+
+    return result;
+  }, [constraintHash, selectedAccessoryIds]);
 };
 
-const getComplementaryPrice = ({
+const useGetComplementaryPrice = ({
   complementaryAccessoryPrices,
   selectedAccessoryIds,
 }) => {
-  const constraintHash = {};
-  const complementaryPriceHash = {};
+  const constraintHash = useMemo(() => {
+    const result = {};
 
-  complementaryAccessoryPrices.forEach((element) => {
-    const { price, accessoryId, complementaryAccessoryId } = element;
+    getRecordAttributes(complementaryAccessoryPrices).forEach((element) => {
+      const { price, accessoryId, complementaryAccessoryId } = element;
 
-    constraintHash[accessoryId] = { id: complementaryAccessoryId, price };
-  });
+      result[accessoryId] = { id: complementaryAccessoryId, price };
+    });
 
-  selectedAccessoryIds.forEach((id) => {
-    if (constraintHash[Number(id)]) {
-      const complement = constraintHash[Number(id)];
+    return result;
+  }, [complementaryAccessoryPrices]);
 
-      complementaryPriceHash[complement.id] = complement.price;
-    }
-  });
+  return useMemo(() => {
+    const result = {};
 
-  return complementaryPriceHash;
+    selectedAccessoryIds.forEach((id) => {
+      if (constraintHash[Number(id)]) {
+        const complement = constraintHash[Number(id)];
+
+        result[complement.id] = { id: Number(id), price: complement.price };
+      }
+    });
+
+    return result;
+  }, [constraintHash, selectedAccessoryIds]);
 };
 
 const useComplementaryAccessory = ({
+  selectedAccessoryIds,
   complementaryAccessoryPrices,
   complementaryAccessoryConstraints,
 }) => {
-  const { watch } = useFormContext();
-  const selectedAccessoryIds = compact(
-    watch("accessory_cart_item.accessory_id"),
-  );
-  const complementaryConstrainIdHash = getContrainedAccessoryId({
+  const complementaryConstrainIdHash = useGetContrainedAccessoryIdHash({
     complementaryAccessoryConstraints,
     selectedAccessoryIds,
   });
 
-  const complementaryPriceHash = getComplementaryPrice({
+  const complementaryPriceHash = useGetComplementaryPrice({
     complementaryAccessoryPrices,
     selectedAccessoryIds,
   });

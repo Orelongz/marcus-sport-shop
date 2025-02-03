@@ -6,8 +6,6 @@ const CollapsibleWithOptions = ({ header, options }) => {
     console.log("select all checkboxes clicked");
   }, []);
 
-  console.log("header", header);
-
   return (
     <div className="collapse bg-base-100 border border-base-300">
       <input type="checkbox" />

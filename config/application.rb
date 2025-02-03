@@ -42,11 +42,9 @@ module MarcusSportShop
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    # Enable Flash, Cookies, MethodOverride for Administrate Gem
-    config.middleware.use ActionDispatch::Flash
-    config.session_store :cookie_store
+    config.session_store :cookie_store, key: "_your_app_session", expire_after: 30.days
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
-    config.middleware.use ::Rack::MethodOverride
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use config.session_store, config.session_options
   end
 end

@@ -10,21 +10,22 @@ const DisplayAccessories = ({
 }) => {
   const { register } = useFormContext();
 
-  const filteredAccessories = accessories.filter(
-    (accessory) =>
-      !accessory.outOfStock &&
-      Number(accessory.accessoryTypeId) == Number(accessoryTypeId) &&
-      !complementaryConstrainIdHash[accessory.id],
-  );
+  const filteredAccessories = Object.values(accessories).filter((accessory) => {
+    return (
+      !accessory.attributes.outOfStock &&
+      Number(accessory.attributes.accessoryTypeId) == Number(accessoryTypeId) &&
+      !complementaryConstrainIdHash[accessory.id]
+    );
+  });
 
   return (
     <div className="collapse-content text-sm flex flex-wrap space-x-4 space-y-4">
       {filteredAccessories.map((accessory) => (
         <div key={accessory.id} className="flex card content-between">
-          {accessory.image && (
+          {accessory.attributes.image && (
             <div className="card-image h-{150px}">
               <Image
-                src={accessory.image}
+                src={accessory.attributes.image}
                 alt="Shoes"
                 className="w-full"
                 width={80}
@@ -38,7 +39,7 @@ const DisplayAccessories = ({
               type="radio"
               className="btn w-full"
               value={accessory.id}
-              aria-label={accessory.name}
+              aria-label={accessory.attributes.name}
               {...register(
                 `accessory_cart_item.accessory_id.${accessoryTypeId}`,
               )}
@@ -46,7 +47,8 @@ const DisplayAccessories = ({
 
             <div className="text-center">
               {formatCentToEuro(
-                complementaryPriceHash[accessory.id] || accessory.price,
+                complementaryPriceHash[accessory.id]?.price ||
+                  accessory.attributes.price,
               )}
             </div>
           </div>

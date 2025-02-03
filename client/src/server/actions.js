@@ -1,4 +1,4 @@
-import { fetchJSON } from "../services/fetch";
+import { fetchJSON, postJSON } from "../services/fetch";
 
 export const getProductTypes = async () => {
   const productTypes = await fetchJSON(
@@ -28,4 +28,16 @@ export const getAccessoryTypes = async (productTypeId) => {
   );
 
   return accessoryTypes;
+};
+
+export const createCartItem = async (data) => {
+  const response = await postJSON("http://localhost:8080/api/v1/cart_items", {
+    cart_item: data,
+  });
+
+  const responsJSON = await response.json();
+
+  if (!response.ok) throw new Error(responsJSON);
+
+  return responsJSON;
 };

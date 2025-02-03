@@ -35,7 +35,7 @@ module Api
         authorize CartItem
 
         cart_item = ::CartItems::CreateCartItem.run!(
-          cart_id: @cart.id,
+          cart: @cart,
           product_id: cart_item_params[:product_id],
           accessory_ids: cart_item_params[:accessory_ids]
         )

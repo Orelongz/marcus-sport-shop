@@ -1,4 +1,6 @@
+import compact from "lodash/compact";
 import Footer from "@/components/Footer";
+import { useFormContext } from "react-hook-form";
 import ProductImage from "@/components/ProductDetailPage/ProductImage";
 import DisplayAccessoryTypes from "@/components/ProductDetailPage/DisplayAccessoryTypes";
 import ProductDetailDescription from "@/components/ProductDetailPage/ProductDetailDescription";
@@ -11,8 +13,14 @@ const ProductDetailPage = ({
   complementaryAccessoryPrices,
   complementaryAccessoryConstraints,
 }) => {
+  const { watch } = useFormContext();
+  const selectedAccessoryIds = compact(
+    watch("accessory_cart_item.accessory_id"),
+  );
+
   const { complementaryConstrainIdHash, complementaryPriceHash } =
     useComplementaryAccessory({
+      selectedAccessoryIds,
       complementaryAccessoryPrices,
       complementaryAccessoryConstraints,
     });
@@ -38,6 +46,8 @@ const ProductDetailPage = ({
 
       <ProductDetailDescription
         product={product}
+        accessories={accessories}
+        selectedAccessoryIds={selectedAccessoryIds}
         complementaryPriceHash={complementaryPriceHash}
         complementaryConstrainIdHash={complementaryConstrainIdHash}
       />
