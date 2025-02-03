@@ -58,7 +58,7 @@ module Api
       private
 
       def product
-        @product ||= authorize(Product.find(params[:id]))
+        @product ||= authorize(Product.in_stock.find(params[:id]))
       end
 
       def product_params
