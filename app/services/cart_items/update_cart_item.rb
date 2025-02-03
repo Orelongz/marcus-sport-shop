@@ -10,6 +10,8 @@ module CartItems
       delete_stale_accessories
 
       add_new_accessories
+
+      cart_item
     end
 
     private

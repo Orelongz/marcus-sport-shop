@@ -14,6 +14,8 @@ module CartItems
       accessory_id_map = accessory_ids.map { |id| { accessory_id: id } }
 
       cart_item.accessory_cart_items.upsert_all(accessory_id_map)
+
+      cart_item
     end
   end
 end

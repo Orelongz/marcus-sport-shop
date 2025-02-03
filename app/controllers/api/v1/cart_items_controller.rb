@@ -73,7 +73,8 @@ module Api
       private
 
       def set_cart_item
-        @cart_item = authorize(CartItem.find(params[:id]))
+        authorize CartItem
+        @cart_item = authorize(@cart.cart_items.find(params[:id]))
       end
 
       def cart_item_params

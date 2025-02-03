@@ -13,7 +13,7 @@ module CurrentCart
 
   def sign_in_user_cart
     current_api_user.cart ||
-      Cart.find(id: session[:cart_id]) ||
+      Cart.find_by(id: session[:cart_id]) ||
       Cart.create(user_id: current_api_user.id)
   end
 

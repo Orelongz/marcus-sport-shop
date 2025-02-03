@@ -1,6 +1,7 @@
 ## Bicycle Shop
 
 ## Table of Contents
+- [Overview](#overview)
 - [Build Instructions](#build-instructions)
 - [Data model](#data-model)
 - [Main user actions](#main-user-actions)
@@ -11,6 +12,7 @@
   - [Adding a new part choice](#adding-a-new-part-choice)
   - [Setting prices](#setting-prices)
 
+## Overview
 You're tasked with building a website that allows Marcus, a bicycle shop owner, to sell his bicycles.
 
 Marcus owns a growing business and now wants to sell online. He also tells you that bicycles are his main product, but if the business continues to grow, he will surely start selling other sports-related items such as skis, surfboards, roller skates, etc. It would be a nice bonus if the same website allowed him to sell those things as well.
