@@ -1,6 +1,8 @@
 module CartItems
   class Base < ActiveInteraction::Base
-    array :accessory_ids, default: []
+    array :accessory_ids, default: [] do
+      integer
+    end
 
     def execute
       raise NotImplementedError("This method must be implemented in a subclass")
