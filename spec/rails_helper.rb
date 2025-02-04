@@ -39,6 +39,8 @@ RSpec.configure do |config|
   config.include CommonHelper
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

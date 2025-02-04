@@ -1,6 +1,8 @@
 class ComplementaryAccessoryPrice < ApplicationRecord
   belongs_to :accessory
   belongs_to :complementary_accessory, class_name: "Accessory"
+
+  validates_uniqueness_of :complementary_accessory_id
 end
 
 # == Schema Information
@@ -13,6 +15,10 @@ end
 #  updated_at                                                                  :datetime         not null
 #  accessory_id                                                                :bigint
 #  complementary_accessory_id                                                  :bigint
+#
+# Indexes
+#
+#  idx_on_complementary_accessory_id_8e686d937a  (complementary_accessory_id) UNIQUE
 #
 # Foreign Keys
 #

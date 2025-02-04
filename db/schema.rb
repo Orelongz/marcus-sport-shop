@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_02_095504) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_04_091914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_02_095504) do
     t.bigint "price", comment: "Price of the complemenatry accessory when combined with an accessory"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["complementary_accessory_id"], name: "idx_on_complementary_accessory_id_8e686d937a", unique: true
   end
 
   create_table "product_accessory_types", force: :cascade do |t|
