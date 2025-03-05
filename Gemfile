@@ -42,7 +42,7 @@ group :test do
   gem "database_cleaner-active_record"
 end
 
-gem "pundit", "~> 2.4"
+gem "pundit", "~> 2.5"
 gem "activeadmin"
 gem "sassc-rails"
 gem "sprockets-rails", require: "sprockets/railtie"
